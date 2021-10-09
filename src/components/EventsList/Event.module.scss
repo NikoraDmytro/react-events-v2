@@ -1,0 +1,42 @@
+@use "../../shared/styles/base";
+@use "../../shared/styles/variables";
+
+.event {
+  @include base.flexCenter();
+  margin-bottom: 1em;
+  *:not(:nth-last-child(1)) {
+    margin-right: 0.25em;
+  }
+  input {
+    @include base.resetInput;
+    padding: 0.25em;
+    border-radius: 2px;
+    border: 1.5px solid transparent;
+    &:not(:disabled) {
+      border: 1.5px solid variables.$inputBorder;
+      background-color: variables.$inputBackground;
+    }
+    &[type="date"]:disabled {
+      visibility: hidden;
+    }
+  }
+  span,
+  input[type="date"] {
+    flex: 4;
+  }
+  input[type="time"] {
+    flex: 2;
+  }
+  > img,
+  div {
+    flex: 1;
+    cursor: pointer;
+  }
+}
+
+.delete {
+  @include base.flexCenter();
+  img {
+    @include base.setSize(0.75em);
+  }
+}

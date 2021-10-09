@@ -1,6 +1,6 @@
 import React from "react";
 import { Event } from "./Event";
-import styles from "./Events.module.scss";
+import styles from "./EventsList.module.scss";
 
 const DailyEvents = () => {
   const dailyEvents = [];

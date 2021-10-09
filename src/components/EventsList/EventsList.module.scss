@@ -1,0 +1,32 @@
+@use "../../shared/styles/base";
+
+.eventsList {
+  @include base.resetList();
+  @include base.flexCenter();
+  flex-wrap: wrap;
+}
+
+.dailyEventsContainer {
+  @include base.setSize(22.5em, 25em);
+  margin-right: 1.5em;
+  border: 1px solid #f0f0f0;
+}
+
+.eventsDate {
+  margin: 0;
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2.5em;
+  background-color: #e5e5e5;
+}
+
+.dailyEvents {
+  @include base.resetList();
+  height: 20em;
+  padding: 1.25em 0.5em;
+  overflow-y: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+}
