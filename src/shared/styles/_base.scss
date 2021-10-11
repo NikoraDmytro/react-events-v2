@@ -1,3 +1,5 @@
+@use "./variables";
+
 @mixin resetList {
   list-style-type: none;
   margin: 0;
@@ -6,10 +8,11 @@
 
 @mixin resetInput {
   outline: none;
-  border: none;
-  background-color: transparent;
   &::-webkit-calendar-picker-indicator {
     display: none;
+  }
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px variables.$inputBackground inset !important;
   }
 }
 

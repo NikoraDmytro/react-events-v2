@@ -11,10 +11,11 @@
     @include base.resetInput;
     padding: 0.25em;
     border-radius: 2px;
-    border: 1.5px solid transparent;
-    &:not(:disabled) {
-      border: 1.5px solid variables.$inputBorder;
-      background-color: variables.$inputBackground;
+    border: 1.5px solid variables.$inputBorder;
+    background-color: variables.$inputBackground;
+    &:disabled {
+      border-color: transparent;
+      background-color: transparent;
     }
     &[type="date"]:disabled {
       visibility: hidden;
