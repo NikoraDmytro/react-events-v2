@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+@mixin resetButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 @mixin resetInput {
   outline: none;
   &::-webkit-calendar-picker-indicator {

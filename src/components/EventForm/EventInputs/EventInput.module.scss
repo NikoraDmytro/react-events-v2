@@ -1,0 +1,20 @@
+@use "../../../shared/styles/base";
+@use "../../../shared/styles/variables";
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  input {
+    @include base.resetInput();
+    background-color: variables.$inputBackground;
+    border: 1.5px solid variables.$inputBorder;
+  }
+}
+
+input.error {
+  border-color: #df1b0d;
+}
+
+em.error {
+  color: #df1b0d;
+}
