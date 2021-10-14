@@ -1,26 +1,4 @@
-@use "./variables";
-
-@mixin resetList {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-@mixin resetButton {
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-@mixin resetInput {
-  outline: none;
-  &::-webkit-calendar-picker-indicator {
-    display: none;
-  }
-  &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px variables.$inputBackground inset !important;
-  }
-}
+@use "sass:selector";
 
 @mixin setSize($width, $height: $width) {
   width: $width;
@@ -32,4 +10,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: $direction;
+}
+
+@mixin hoverActive($color1, $color2) {
+  &:hover {
+    background-color: $color1;
+  }
+  &:active {
+    background-color: $color2;
+  }
 }

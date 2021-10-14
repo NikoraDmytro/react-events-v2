@@ -1,7 +1,8 @@
 @use "../../shared/styles/base";
+@use "../../shared/styles/reset";
 
 .eventsList {
-  @include base.resetList();
+  @include reset.resetList();
   @include base.flexCenter();
   flex-wrap: wrap;
 }
@@ -22,7 +23,7 @@
 }
 
 .dailyEvents {
-  @include base.resetList();
+  @include reset.resetList();
   height: 20em;
   padding: 1.25em 0.5em;
   overflow-y: hidden;

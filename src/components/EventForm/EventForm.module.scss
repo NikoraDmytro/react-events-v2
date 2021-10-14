@@ -1,4 +1,5 @@
 @use "../../shared/styles/base";
+@use "../../shared/styles/reset";
 
 .eventForm {
   margin: 2.5em 10em 2.5em 5em;
@@ -31,18 +32,12 @@
 }
 
 .submitButton {
-  @include base.resetButton;
+  @include reset.resetButton;
   @include base.setSize(25%, 3em);
+  @include base.hoverActive(#fc641c, #ca3d03);
   float: right;
   color: #fff;
   margin-top: 1em;
   border-radius: 5px;
-
   background-color: #ff4c00;
-  &:hover {
-    background-color: #fc641c;
-  }
-  &:active {
-    background-color: #ca3d03;
-  }
 }

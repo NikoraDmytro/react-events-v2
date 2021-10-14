@@ -29,16 +29,41 @@ export const Event = ({ index }: Props) => {
       ref={liElement}
       className={styles.event}
     >
-      <span>Custom {index}</span>
-      <input disabled={!editMode} type="date" defaultValue="2019-05-22" />
-      <input disabled={!editMode} type="time" defaultValue="09:00" />
-      <input disabled={!editMode} type="time" defaultValue="12:00" />
+      <span className={styles["flex-4"]}>Custom {index}</span>
+      <input
+        className={styles["flex-4"]}
+        disabled={!editMode}
+        type="date"
+        defaultValue="2019-05-22"
+      />
+      <input
+        className={styles["flex-2"]}
+        disabled={!editMode}
+        type="time"
+        defaultValue="09:00"
+      />
+      <input
+        className={styles["flex-2"]}
+        disabled={!editMode}
+        type="time"
+        defaultValue="12:00"
+      />
       {editMode ? (
-        <img onClick={editEvent} src={"./img/tick.png"} alt="Confirm" />
+        <img
+          className={styles["flex-1"]}
+          onClick={editEvent}
+          src="./img/tick.png"
+          alt="Confirm"
+        />
       ) : (
-        <img onClick={toEditMode} src="img/edit.png" alt="Edit" />
+        <img
+          className={styles["flex-1"]}
+          onClick={toEditMode}
+          src="img/edit.png"
+          alt="Edit"
+        />
       )}
-      <div className={styles.delete}>
+      <div className={styles.delete + " " + styles["flex-1"]}>
         <img src="img/close.png" alt="Delete" />
       </div>
     </li>

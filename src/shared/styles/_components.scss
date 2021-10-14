@@ -1,0 +1,24 @@
+@use "./reset";
+@use "./variables";
+
+$flexList: 1, 2, 4;
+
+@each $flex in $flexList {
+  .flex-#{$flex} {
+    flex: $flex;
+  }
+}
+
+input {
+  @include reset.resetInput;
+  border: 1.5px solid variables.$inputBorder;
+  background-color: variables.$inputBackground;
+}
+
+input:disabled {
+  border-color: transparent;
+  background-color: transparent;
+}
+input[type="date"]:disabled {
+  visibility: hidden;
+}

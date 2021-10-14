@@ -1,14 +1,8 @@
-@use "../../../shared/styles/base";
-@use "../../../shared/styles/variables";
+@use "../../../shared/styles/components";
 
 .inputField {
   display: flex;
   flex-direction: column;
-  input {
-    @include base.resetInput();
-    background-color: variables.$inputBackground;
-    border: 1.5px solid variables.$inputBorder;
-  }
 }
 
 input.error {

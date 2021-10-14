@@ -1,5 +1,5 @@
 @use "../../shared/styles/base";
-@use "../../shared/styles/variables";
+@use "../../shared/styles/components";
 
 .event {
   @include base.flexCenter();
@@ -8,29 +8,10 @@
     margin-right: 0.25em;
   }
   input {
-    @include base.resetInput;
     padding: 0.25em;
     border-radius: 2px;
-    border: 1.5px solid variables.$inputBorder;
-    background-color: variables.$inputBackground;
-    &:disabled {
-      border-color: transparent;
-      background-color: transparent;
-    }
-    &[type="date"]:disabled {
-      visibility: hidden;
-    }
   }
-  span,
-  input[type="date"] {
-    flex: 4;
-  }
-  input[type="time"] {
-    flex: 2;
-  }
-  > img,
-  div {
-    flex: 1;
+  img {
     cursor: pointer;
   }
 }
