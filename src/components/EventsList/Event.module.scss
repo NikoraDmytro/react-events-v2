@@ -18,6 +18,7 @@
 
 .delete {
   @include base.flexCenter();
+  flex: 1;
   img {
     @include base.setSize(0.75em);
   }

@@ -48,22 +48,13 @@ export const Event = ({ index }: Props) => {
         type="time"
         defaultValue="12:00"
       />
-      {editMode ? (
-        <img
-          className={styles["flex-1"]}
-          onClick={editEvent}
-          src="./img/tick.png"
-          alt="Confirm"
-        />
-      ) : (
-        <img
-          className={styles["flex-1"]}
-          onClick={toEditMode}
-          src="img/edit.png"
-          alt="Edit"
-        />
-      )}
-      <div className={styles.delete + " " + styles["flex-1"]}>
+      <img
+        className={styles["flex-1"]}
+        onClick={editMode ? editEvent : toEditMode}
+        src={editMode ? "./img/tick.png" : "img/edit.png"}
+        alt={editMode ? "Confirm" : "Edit"}
+      />
+      <div className={styles.delete}>
         <img src="img/close.png" alt="Delete" />
       </div>
     </li>
