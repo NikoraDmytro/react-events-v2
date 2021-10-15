@@ -1,5 +1,5 @@
 import { addYears, format } from "date-fns";
-import { EventFormValues } from "../shared/types/FormTypes";
+import { EventFormValues } from "../../shared/types/FormTypes";
 
 const formatDate = (date: Date) => {
   return format(date, "yyyy-MM-dd");

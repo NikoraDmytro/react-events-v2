@@ -19,8 +19,6 @@ export const useCapacity = (ref: RefObject<HTMLUListElement>) => {
       const childWidth = child.clientWidth + margin;
       const width = ref.current.offsetWidth - margin;
 
-      console.log(width, childWidth);
-
       setCapacity(Math.floor(width / childWidth));
     };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { EventFormValues } from "../../shared/types/FormTypes";
-import { eventFormValidation } from "../../utils/eventFormValidation";
+import { eventFormValidation } from "../../utils/validation/eventFormValidation";
 import styles from "./EventForm.module.scss";
 import { EventInput } from "./EventInputs/EventInput";
 

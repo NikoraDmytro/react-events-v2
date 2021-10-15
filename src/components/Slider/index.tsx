@@ -1,23 +1,8 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { SliderProps } from "../../shared/types/Props";
-import { useCapacity } from "../../utils/useCapacity";
+import { getVisibleElements } from "../../utils/functions/getVisibleElements";
+import { useCapacity } from "../../utils/hooks/useCapacity";
 import styles from "./Slider.module.scss";
-
-const getVisibleElements = (
-  capacity: number,
-  start: number,
-  list: React.ReactElement[]
-) => {
-  const visibleElements: React.ReactElement[] = [];
-
-  for (let i = 0; i < capacity && i < list.length; i++) {
-    const element = list[start + i];
-
-    visibleElements.push(element);
-  }
-
-  return visibleElements;
-};
 
 export const Slider = ({ list, className }: SliderProps) => {
   const [start, setStart] = useState(0);
