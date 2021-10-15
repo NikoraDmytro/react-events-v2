@@ -1,6 +1,7 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Event } from "./Event";
 import styles from "./EventsList.module.scss";
+import { Slider } from "./../Slider/index";
 
 const DailyEvents = () => {
   const dailyEvents = [];
@@ -19,13 +20,13 @@ const DailyEvents = () => {
 };
 
 export const EventsList = () => {
-  const allEvents = [];
+  const allEvents: ReactElement<HTMLLIElement>[] = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 6; i++) {
     const dailyEvents = <DailyEvents />;
 
     allEvents.push(dailyEvents);
   }
 
-  return <ul className={styles.eventsList}>{allEvents}</ul>;
+  return <Slider list={allEvents} className={styles.eventsList} />;
 };

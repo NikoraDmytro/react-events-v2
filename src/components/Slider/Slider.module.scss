@@ -1,0 +1,22 @@
+@use "../../shared/styles/base";
+@use "../../shared/styles/reset";
+
+.slider {
+  @include base.flexCenter();
+  margin: 2em;
+  > ul {
+    width: 100%;
+  }
+  button {
+    @include reset.resetButton;
+    @include base.hoverActive(#ecebeb, #858282);
+    height: 7.5em;
+    background-color: transparent;
+    &:first-of-type img {
+      transform: rotate(180deg);
+    }
+    &:disabled {
+      visibility: hidden;
+    }
+  }
+}
