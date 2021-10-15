@@ -4,6 +4,8 @@ import { EventFormValues } from "../../shared/types/FormTypes";
 import { eventFormValidation } from "../../utils/validation/eventFormValidation";
 import styles from "./EventForm.module.scss";
 import { EventInput } from "./EventInputs/EventInput";
+import { useTypedDispatch } from "../../store/hooks";
+import { addEvent } from "../../store/reducers/eventsSlice";
 
 const initialValues: EventFormValues = {
   eventName: "",
@@ -13,12 +15,21 @@ const initialValues: EventFormValues = {
 };
 
 export const EventForm = () => {
+  const dispatch = useTypedDispatch();
+
   return (
     <Formik
       initialValues={initialValues}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+        dispatch(
+          addEvent({
+            name: values.eventName,
+            date: values.eventDate,
+            start: values.eventStart,
+            end: values.eventEnd,
+          })
+        );
         setSubmitting(false);
       }}
     >

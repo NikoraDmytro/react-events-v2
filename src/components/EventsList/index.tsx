@@ -1,32 +1,33 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Event } from "./Event";
 import styles from "./EventsList.module.scss";
 import { Slider } from "./../Slider/index";
-
-const DailyEvents = () => {
-  const dailyEvents = [];
-
-  for (let i = 0; i < 6; i++) {
-    const event = <Event index={i + 1} />;
-    dailyEvents.push(event);
-  }
-
-  return (
-    <li className={styles.dailyEventsContainer}>
-      <p className={styles.eventsDate}>22.05.2019</p>
-      <ul className={styles.dailyEvents}>{dailyEvents}</ul>
-    </li>
-  );
-};
+import { useTypedSelector } from "../../store/hooks";
+import { format } from "date-fns";
 
 export const EventsList = () => {
-  const allEvents: ReactElement<HTMLLIElement>[] = [];
+  const allEvents = useTypedSelector((state) => state.events);
 
-  for (let i = 0; i < 6; i++) {
-    const dailyEvents = <DailyEvents />;
+  const eventsList = Object.entries(allEvents).map(([date, dailyEvents]) => {
+    const events = dailyEvents.map((event) => <Event event={event} />);
 
-    allEvents.push(dailyEvents);
+    return (
+      <li className={styles.dailyEventsContainer}>
+        <p className={styles.eventsDate}>
+          {format(new Date(date), "dd.MM.yyyy")}
+        </p>
+        <ul className={styles.dailyEvents}>{events}</ul>
+      </li>
+    );
+  });
+
+  if (!eventsList.length) {
+    return (
+      <ul className={styles.eventsList}>
+        <h1>No events yet</h1>
+      </ul>
+    );
   }
 
-  return <Slider list={allEvents} className={styles.eventsList} />;
+  return <Slider list={eventsList} className={styles.eventsList} />;
 };

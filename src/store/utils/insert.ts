@@ -6,12 +6,14 @@ export const insert = (events: EventWithId[], newEvent: EventWithId) => {
   }
   let index = events.length - 1;
 
-  while (true) {
-    if (events[index].start > newEvent.start) {
-      events[index + 1] = events[index];
-    } else {
-      events[index + 1] = newEvent;
-      return events;
+  while (index !== -1) {
+    if (events[index].start < newEvent.start) {
+      break;
     }
+    events[index + 1] = events[index];
+    index--;
   }
+
+  events[index + 1] = newEvent;
+  return events;
 };

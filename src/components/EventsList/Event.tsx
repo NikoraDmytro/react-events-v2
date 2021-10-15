@@ -1,11 +1,8 @@
 import React, { useRef, useState } from "react";
+import { EventProps } from "../../shared/types/Props";
 import styles from "./Event.module.scss";
 
-interface Props {
-  index: number;
-}
-
-export const Event = ({ index }: Props) => {
+export const Event = ({ event }: EventProps) => {
   const liElement = useRef<HTMLLIElement>(null);
   const [editMode, setEditMode] = useState(false);
 
@@ -23,30 +20,30 @@ export const Event = ({ index }: Props) => {
 
   return (
     <li
-      key={index}
+      key={event.id}
       onBlur={(e) => handleBlur(e)}
       tabIndex={0}
       ref={liElement}
       className={styles.event}
     >
-      <span className={styles["flex-4"]}>Custom {index}</span>
+      <span className={styles["flex-4"]}>{event.name}</span>
       <input
         className={styles["flex-4"]}
         disabled={!editMode}
         type="date"
-        defaultValue="2019-05-22"
+        defaultValue={event.date}
       />
       <input
         className={styles["flex-2"]}
         disabled={!editMode}
         type="time"
-        defaultValue="09:00"
+        defaultValue={event.start}
       />
       <input
         className={styles["flex-2"]}
         disabled={!editMode}
         type="time"
-        defaultValue="12:00"
+        defaultValue={event.end}
       />
       <img
         className={styles["flex-1"]}
