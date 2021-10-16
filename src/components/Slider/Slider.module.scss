@@ -7,7 +7,7 @@
   > ul {
     width: 100%;
   }
-  button {
+  > button {
     @include reset.resetButton;
     @include base.hoverActive(#ecebeb, #858282);
     height: 7.5em;

@@ -1,0 +1,40 @@
+@use "../../../shared/styles/base";
+@use "../../../shared/styles/components";
+@use "../../../shared/styles/reset";
+
+.event {
+  @include base.flexCenter();
+  margin-bottom: 1em;
+  *:not(:nth-last-child(1)) {
+    margin-right: 0.25em;
+  }
+  input {
+    padding: 0.25em;
+    border-radius: 2px;
+  }
+  img {
+    cursor: pointer;
+  }
+  &.disabled {
+    input {
+      border-color: transparent;
+      background-color: transparent;
+    }
+    input[type="date"] {
+      visibility: hidden;
+    }
+  }
+  button {
+    @include reset.resetButton();
+    flex: 1;
+    background-color: transparent;
+  }
+}
+
+.editImg {
+  @include base.setSize(90%, auto);
+}
+
+.deleteImg {
+  @include base.setSize(0.75em);
+}

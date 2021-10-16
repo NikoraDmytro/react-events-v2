@@ -1,18 +1,23 @@
 import React from "react";
-import { Event } from "./Event";
+import { Event } from "./components/Event";
 import styles from "./EventsList.module.scss";
 import { Slider } from "./../Slider/index";
 import { useTypedSelector } from "../../store/hooks";
 import { format } from "date-fns";
+import { EventWrapper } from "./components/EventWrapper";
 
 export const EventsList = () => {
   const allEvents = useTypedSelector((state) => state.events);
 
   const eventsList = Object.entries(allEvents).map(([date, dailyEvents]) => {
-    const events = dailyEvents.map((event) => <Event event={event} />);
+    const events = dailyEvents.map((event) => (
+      <EventWrapper key={event.id} event={event}>
+        {(props) => <Event {...props} />}
+      </EventWrapper>
+    ));
 
     return (
-      <li className={styles.dailyEventsContainer}>
+      <li key={date} className={styles.dailyEventsContainer}>
         <p className={styles.eventsDate}>
           {format(new Date(date), "dd.MM.yyyy")}
         </p>

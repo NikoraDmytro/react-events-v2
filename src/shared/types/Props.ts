@@ -14,4 +14,6 @@ export type SliderProps = {
 
 export type EventProps = {
   event: EventWithId;
+  mode: "edit" | "read";
+  toggleMode: () => void;
 };

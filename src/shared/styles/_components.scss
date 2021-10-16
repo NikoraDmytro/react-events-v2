@@ -14,11 +14,3 @@ input {
   border: 1.5px solid variables.$inputBorder;
   background-color: variables.$inputBackground;
 }
-
-input:disabled {
-  border-color: transparent;
-  background-color: transparent;
-}
-input[type="date"]:disabled {
-  visibility: hidden;
-}
