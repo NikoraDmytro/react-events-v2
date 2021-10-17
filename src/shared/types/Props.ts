@@ -16,4 +16,12 @@ export type EventProps = {
   event: EventWithId;
   mode: "edit" | "read";
   toggleMode: () => void;
+  resetForm: (e?: React.SyntheticEvent<any, Event> | undefined) => void;
+};
+
+export type Mode = EventProps["mode"];
+
+export type EventWrapperProps = {
+  event: EventWithId;
+  children: (props: EventProps) => React.ReactNode;
 };

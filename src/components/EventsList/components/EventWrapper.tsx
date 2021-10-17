@@ -1,40 +1,39 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { EventFormValues } from "../../../shared/types/FormTypes";
-import { EventWithId } from "../../../store/types/StateTypes";
 import { eventFormValidation } from "./../../../utils/validation/eventFormValidation";
-import { EventProps } from "../../../shared/types/Props";
+import { Mode, EventWrapperProps } from "../../../shared/types/Props";
+import { useTypedDispatch } from "../../../store/hooks";
+import { addEvent, removeEvent } from "../../../store/reducers/eventsSlice";
+import {
+  getInitialValues,
+  parseFormValues,
+} from "./../../../utils/functions/EventFormFunctions";
 
-interface Props {
-  event: EventWithId;
-  children: (props: EventProps) => React.ReactNode;
-}
-
-type Mode = EventProps["mode"];
-
-export const EventWrapper = ({ event, children }: Props) => {
+export const EventWrapper = ({ event, children }: EventWrapperProps) => {
   const [mode, setMode] = useState<Mode>("read");
+  const dispatch = useTypedDispatch();
 
   const toggleMode = () =>
     mode === "read" ? setMode("edit") : setMode("read");
 
-  const initialValues: EventFormValues = {
-    eventName: event.name,
-    eventDate: event.date,
-    eventStart: event.start,
-    eventEnd: event.end,
-  };
-
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues(event)}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+        if (mode === "edit") {
+          dispatch(removeEvent(event));
+          dispatch(addEvent(parseFormValues(values, event.id)));
+        }
+        toggleMode();
         setSubmitting(false);
       }}
     >
-      <Form>{children({ mode, toggleMode, event })}</Form>
+      {({ handleReset }) => (
+        <Form>
+          {children({ mode, toggleMode, event, resetForm: handleReset })}
+        </Form>
+      )}
     </Formik>
   );
 };

@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   AddEventActionType,
   RemoveEventActionType,
@@ -11,7 +11,7 @@ export const eventsSlice = createSlice({
   initialState: {} as EventsState,
   reducers: {
     addEvent: (state, action: AddEventActionType) => {
-      const newEvent = { ...action.payload, id: nanoid() };
+      const newEvent = action.payload;
       const date = action.payload.date;
 
       state[date] = insert(state[date], newEvent);
@@ -20,11 +20,15 @@ export const eventsSlice = createSlice({
       const { date, id } = action.payload;
       const index = state[date].findIndex((event) => event.id === id);
 
-      state[date] = state[date].splice(index, 1);
+      if (state[date].length === 1) {
+        delete state[date];
+      } else {
+        state[date].splice(index, 1);
+      }
     },
   },
 });
 
-export const { addEvent } = eventsSlice.actions;
+export const { addEvent, removeEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;

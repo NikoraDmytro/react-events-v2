@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Event, EventWithId } from "./StateTypes";
+import { EventWithId } from "./StateTypes";
 
-export type AddEventActionType = PayloadAction<Event>;
+export type AddEventActionType = PayloadAction<EventWithId>;
 export type RemoveEventActionType = PayloadAction<EventWithId>;

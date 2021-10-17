@@ -1,35 +1,24 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { EventFormValues } from "../../shared/types/FormTypes";
 import { eventFormValidation } from "../../utils/validation/eventFormValidation";
-import styles from "./EventForm.module.scss";
 import { EventInput } from "./EventInputs/EventInput";
 import { useTypedDispatch } from "../../store/hooks";
 import { addEvent } from "../../store/reducers/eventsSlice";
-
-const initialValues: EventFormValues = {
-  eventName: "",
-  eventDate: "",
-  eventStart: "",
-  eventEnd: "",
-};
+import {
+  getInitialValues,
+  parseFormValues,
+} from "./../../utils/functions/EventFormFunctions";
+import styles from "./EventForm.module.scss";
 
 export const EventForm = () => {
   const dispatch = useTypedDispatch();
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues()}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        dispatch(
-          addEvent({
-            name: values.eventName,
-            date: values.eventDate,
-            start: values.eventStart,
-            end: values.eventEnd,
-          })
-        );
+        dispatch(addEvent(parseFormValues(values)));
         setSubmitting(false);
       }}
     >
