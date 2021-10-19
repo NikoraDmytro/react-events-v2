@@ -16,7 +16,6 @@ export type EventProps = {
   event: EventWithId;
   mode: "edit" | "read";
   toggleMode: () => void;
-  resetForm: (e?: React.SyntheticEvent<any, Event> | undefined) => void;
 };
 
 export type Mode = EventProps["mode"];

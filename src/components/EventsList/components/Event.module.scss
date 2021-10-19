@@ -12,18 +12,6 @@
     padding: 0.25em;
     border-radius: 2px;
   }
-  img {
-    cursor: pointer;
-  }
-  &.disabled {
-    input {
-      border-color: transparent;
-      background-color: transparent;
-    }
-    input[type="date"] {
-      visibility: hidden;
-    }
-  }
   button {
     @include reset.resetButton();
     flex: 1;

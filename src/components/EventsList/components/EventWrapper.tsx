@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { eventFormValidation } from "./../../../utils/validation/eventFormValidation";
 import { Mode, EventWrapperProps } from "../../../shared/types/Props";
 import { useTypedDispatch } from "../../../store/hooks";
-import { addEvent, removeEvent } from "../../../store/reducers/eventsSlice";
+import { editEvent } from "../../../store/reducers/eventsSlice";
 import {
   getInitialValues,
   parseFormValues,
@@ -21,19 +21,27 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        if (mode === "edit") {
-          dispatch(removeEvent(event));
-          dispatch(addEvent(parseFormValues(values, event.id)));
-        }
-        toggleMode();
+        dispatch(editEvent(event, parseFormValues(values, event.id)));
         setSubmitting(false);
       }}
     >
-      {({ handleReset }) => (
-        <Form>
-          {children({ mode, toggleMode, event, resetForm: handleReset })}
-        </Form>
-      )}
+      {({ handleReset }) => {
+        const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {
+          const parent = e.target.parentElement;
+          const target = e.relatedTarget;
+
+          if (mode === "edit" && parent && !parent.contains(target)) {
+            handleReset();
+            toggleMode();
+          }
+        };
+
+        return (
+          <Form onBlur={handleBlur}>
+            {children({ mode, event, toggleMode })}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

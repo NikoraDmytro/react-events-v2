@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { batch } from "react-redux";
+import { TypedDispatch } from "../store";
 import {
   AddEventActionType,
   RemoveEventActionType,
 } from "../types/ActionTypes";
-import { EventsState } from "../types/StateTypes";
+import { EventsState, EventWithId } from "../types/StateTypes";
 import { insert } from "./../utils/insert";
 
 export const eventsSlice = createSlice({
@@ -28,6 +30,18 @@ export const eventsSlice = createSlice({
     },
   },
 });
+
+export const editEvent = (
+  previousEvent: EventWithId,
+  newEvent: EventWithId
+) => {
+  return (dispatch: TypedDispatch) => {
+    batch(() => {
+      dispatch(removeEvent(previousEvent));
+      dispatch(addEvent(newEvent));
+    });
+  };
+};
 
 export const { addEvent, removeEvent } = eventsSlice.actions;
 
