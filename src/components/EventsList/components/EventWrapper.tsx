@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { eventFormValidation } from "./../../../utils/validation/eventFormValidation";
 import { Mode, EventWrapperProps } from "../../../shared/types/Props";
 import { useTypedDispatch } from "../../../store/hooks";
-import { editEvent } from "../../../store/reducers/eventsSlice";
+import { edit } from "./../../../store/actionCreators/edit";
 import {
   getInitialValues,
   parseFormValues,
@@ -21,7 +21,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        dispatch(editEvent(event, parseFormValues(values, event.id)));
+        dispatch(edit(event, parseFormValues(values, event.id)));
         setSubmitting(false);
       }}
     >

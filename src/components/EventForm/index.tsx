@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { eventFormValidation } from "../../utils/validation/eventFormValidation";
 import { EventInput } from "./EventInputs/EventInput";
 import { useTypedDispatch } from "../../store/hooks";
-import { addEvent } from "../../store/reducers/eventsSlice";
+import { add } from "./../../store/actionCreators/add";
 import {
   getInitialValues,
   parseFormValues,
@@ -18,7 +18,7 @@ export const EventForm = () => {
       initialValues={getInitialValues()}
       validate={eventFormValidation}
       onSubmit={(values, { setSubmitting }) => {
-        dispatch(addEvent(parseFormValues(values)));
+        dispatch(add(parseFormValues(values)));
         setSubmitting(false);
       }}
     >

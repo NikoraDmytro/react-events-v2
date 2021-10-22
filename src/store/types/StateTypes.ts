@@ -8,5 +8,8 @@ export type Event = {
 export type EventWithId = Event & { id: string };
 
 export type EventsState = {
-  [date: string]: EventWithId[];
+  dates: string[];
+  entities: {
+    [date: string]: EventWithId[];
+  };
 };

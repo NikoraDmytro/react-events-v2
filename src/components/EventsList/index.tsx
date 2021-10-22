@@ -5,16 +5,19 @@ import { Slider } from "./../Slider/index";
 import { useTypedSelector } from "../../store/hooks";
 import { format } from "date-fns";
 import { EventWrapper } from "./components/EventWrapper";
+import { getAllEvents } from "../../store/reducers/eventsSlice";
 
 export const EventsList = () => {
-  const allEvents = useTypedSelector((state) => state.events);
+  const allEvents = useTypedSelector(getAllEvents);
 
-  const eventsList = Object.entries(allEvents).map(([date, dailyEvents]) => {
+  const eventsList = allEvents.map((dailyEvents) => {
     const events = dailyEvents.map((event) => (
       <EventWrapper key={event.id} event={event}>
         {(props) => <Event {...props} />}
       </EventWrapper>
     ));
+
+    const date = dailyEvents[0].date;
 
     return (
       <li key={date} className={styles.dailyEventsContainer}>

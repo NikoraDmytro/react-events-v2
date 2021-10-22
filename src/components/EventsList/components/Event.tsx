@@ -4,7 +4,7 @@ import styles from "./Event.module.scss";
 
 import { EventProps } from "../../../shared/types/Props";
 import { useTypedDispatch } from "../../../store/hooks";
-import { removeEvent } from "../../../store/reducers/eventsSlice";
+import { remove } from "./../../../store/actionCreators/remove";
 
 export const Event = ({ event, mode, toggleMode }: EventProps) => {
   const dispatch = useTypedDispatch();
@@ -48,7 +48,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         />
       </button>
 
-      <button onClick={() => dispatch(removeEvent(event))}>
+      <button onClick={() => dispatch(remove(event.date, event.id))}>
         <img className={styles.deleteImg} src="img/close.png" alt="Delete" />
       </button>
     </li>
