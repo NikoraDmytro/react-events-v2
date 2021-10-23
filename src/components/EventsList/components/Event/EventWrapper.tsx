@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { eventFormValidation } from "./../../../utils/validation/eventFormValidation";
-import { Mode, EventWrapperProps } from "../../../shared/types/Props";
-import { useTypedDispatch } from "../../../store/hooks";
-import { edit } from "./../../../store/actionCreators/edit";
+import { eventFormValidation } from "../../../../utils/validation/eventFormValidation";
+import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
+import { useTypedDispatch } from "../../../../store/hooks";
+import { edit } from "../../../../store/actionCreators/edit";
 import {
   getInitialValues,
   parseFormValues,
-} from "./../../../utils/functions/EventFormFunctions";
+} from "../../../../utils/functions/EventFormFunctions";
 
 export const EventWrapper = ({ event, children }: EventWrapperProps) => {
   const [mode, setMode] = useState<Mode>("read");

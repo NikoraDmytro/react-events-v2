@@ -1,15 +1,19 @@
-import React from "react";
 import { Field } from "formik";
 import styles from "./Event.module.scss";
 
-import { EventProps } from "../../../shared/types/Props";
-import { useTypedDispatch } from "../../../store/hooks";
-import { remove } from "./../../../store/actionCreators/remove";
+import { EventProps } from "../../../../shared/types/Props";
+import { useTypedDispatch } from "../../../../store/hooks";
+import { remove } from "../../../../store/actionCreators/remove";
 
 export const Event = ({ event, mode, toggleMode }: EventProps) => {
   const dispatch = useTypedDispatch();
 
   const inEditMode = mode === "edit";
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (mode === "read") e.preventDefault();
+    toggleMode();
+  };
 
   return (
     <li className={styles.event}>
@@ -34,13 +38,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         className={styles["flex-2"]}
       />
 
-      <button
-        type={"submit"}
-        onClick={(e) => {
-          if (mode === "read") e.preventDefault();
-          toggleMode();
-        }}
-      >
+      <button type={"submit"} onClick={handleClick}>
         <img
           className={styles.editImg}
           src={inEditMode ? "./img/tick.png" : "img/edit.png"}

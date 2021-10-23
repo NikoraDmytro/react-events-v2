@@ -1,6 +1,6 @@
-@use "../../../shared/styles/base";
-@use "../../../shared/styles/components";
-@use "../../../shared/styles/reset";
+@use "../../../../shared/styles/base";
+@use "../../../../shared/styles/components";
+@use "../../../../shared/styles/reset";
 
 .event {
   @include base.flexCenter();

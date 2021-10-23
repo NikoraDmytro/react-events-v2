@@ -12,6 +12,10 @@ export type SliderProps = {
   className: string;
 };
 
+export type DailyEventsProps = {
+  dailyEvents: EventWithId[];
+};
+
 export type EventProps = {
   event: EventWithId;
   mode: "edit" | "read";
