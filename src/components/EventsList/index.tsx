@@ -9,7 +9,7 @@ import styles from "./EventsList.module.scss";
 
 export const EventsList = () => {
   let specialContent = null;
-  const allEvents = useTypedSelector(getAllEvents);
+  const { events: allEvents, status, error } = useTypedSelector(getAllEvents);
 
   const eventsList = allEvents.map((dailyEvents) => (
     <DailyEvents key={dailyEvents[0].date} dailyEvents={dailyEvents} />

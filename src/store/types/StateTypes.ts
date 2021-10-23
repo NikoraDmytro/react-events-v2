@@ -1,3 +1,5 @@
+import { SerializedError } from "@reduxjs/toolkit";
+
 export type Event = {
   name: string;
   start: string;
@@ -12,4 +14,6 @@ export type EventsState = {
   entities: {
     [date: string]: EventWithId[];
   };
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error?: SerializedError;
 };
