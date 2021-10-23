@@ -3,11 +3,8 @@ import { Formik, Form } from "formik";
 import { eventFormValidation } from "../../../../utils/validation/eventFormValidation";
 import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
 import { useTypedDispatch } from "../../../../store/hooks";
-import { edit } from "../../../../store/actionCreators/edit";
-import {
-  getInitialValues,
-  parseFormValues,
-} from "../../../../utils/functions/EventFormFunctions";
+import { getInitialValues } from "../../../../utils/functions/getInitialValues";
+import { handleSubmit } from "../../../../utils/functions/handleSubmit";
 
 export const EventWrapper = ({ event, children }: EventWrapperProps) => {
   const [mode, setMode] = useState<Mode>("read");
@@ -20,10 +17,9 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
     <Formik
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
-      onSubmit={(values, { setSubmitting }) => {
-        dispatch(edit(event, parseFormValues(values, event.id)));
-        setSubmitting(false);
-      }}
+      onSubmit={(values, helpers) =>
+        handleSubmit(values, helpers, dispatch, event)
+      }
     >
       {({ handleReset }) => {
         const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {

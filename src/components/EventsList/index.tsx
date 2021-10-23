@@ -26,7 +26,8 @@ export const EventsList = () => {
   } else if (status === "failed" && error) {
     alert(error.message);
     console.log(error);
-  } else if (!eventsList.length) {
+  }
+  if (!eventsList.length) {
     specialContent = <h1>No events yet!</h1>;
   }
 

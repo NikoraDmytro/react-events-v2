@@ -3,12 +3,9 @@ import { Formik, Form } from "formik";
 import { eventFormValidation } from "../../utils/validation/eventFormValidation";
 import { EventInput } from "./EventInputs/EventInput";
 import { useTypedDispatch } from "../../store/hooks";
-import { add } from "./../../store/actionCreators/add";
-import {
-  getInitialValues,
-  parseFormValues,
-} from "./../../utils/functions/EventFormFunctions";
+import { getInitialValues } from "../../utils/functions/getInitialValues";
 import styles from "./EventForm.module.scss";
+import { handleSubmit } from "./../../utils/functions/handleSubmit";
 
 export const EventForm = () => {
   const dispatch = useTypedDispatch();
@@ -17,10 +14,7 @@ export const EventForm = () => {
     <Formik
       initialValues={getInitialValues()}
       validate={eventFormValidation}
-      onSubmit={(values, { setSubmitting }) => {
-        dispatch(add(parseFormValues(values)));
-        setSubmitting(false);
-      }}
+      onSubmit={(values, helpers) => handleSubmit(values, helpers, dispatch)}
     >
       <Form className={styles.eventForm}>
         <h1 className={styles.formHeader}>Добавить мероприятие</h1>

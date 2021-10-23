@@ -4,15 +4,26 @@ import styles from "./Event.module.scss";
 import { EventProps } from "../../../../shared/types/Props";
 import { useTypedDispatch } from "../../../../store/hooks";
 import { remove } from "../../../../store/actionCreators/remove";
+import { Axios } from "./../../../../Axios";
 
 export const Event = ({ event, mode, toggleMode }: EventProps) => {
   const dispatch = useTypedDispatch();
 
   const inEditMode = mode === "edit";
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (mode === "read") e.preventDefault();
+  const submitButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!inEditMode) e.preventDefault();
     toggleMode();
+  };
+
+  const handleClick = async () => {
+    try {
+      await Axios.delete(`/events/delete/${event.id}`);
+
+      dispatch(remove(event.date, event.id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -38,7 +49,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         className={styles["flex-2"]}
       />
 
-      <button type={"submit"} onClick={handleClick}>
+      <button type={"submit"} onClick={submitButtonClick}>
         <img
           className={styles.editImg}
           src={inEditMode ? "./img/tick.png" : "img/edit.png"}
@@ -46,7 +57,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         />
       </button>
 
-      <button onClick={() => dispatch(remove(event.date, event.id))}>
+      <button onClick={handleClick}>
         <img className={styles.deleteImg} src="img/close.png" alt="Delete" />
       </button>
     </li>
