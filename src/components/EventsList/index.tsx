@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Slider } from "./../Slider/index";
-import { useTypedSelector } from "../../store/hooks";
-import { getAllEvents } from "../../store/reducers/eventsSlice";
+import { useTypedDispatch, useTypedSelector } from "../../store/hooks";
+import { fetchEvents, getAllEvents } from "../../store/reducers/eventsSlice";
 import { DailyEvents } from "./components/DailyEvents/index";
 
 import styles from "./EventsList.module.scss";
 
 export const EventsList = () => {
+  const dispatch = useTypedDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, [dispatch]);
+
   let specialContent = null;
   const { events: allEvents, status, error } = useTypedSelector(getAllEvents);
 
@@ -15,12 +21,17 @@ export const EventsList = () => {
     <DailyEvents key={dailyEvents[0].date} dailyEvents={dailyEvents} />
   ));
 
-  if (!eventsList.length) {
+  if (status === "loading") {
+    specialContent = <h1>Loading!</h1>;
+  } else if (status === "failed" && error) {
+    alert(error.message);
+    console.log(error);
+  } else if (!eventsList.length) {
     specialContent = <h1>No events yet!</h1>;
   }
 
   return specialContent ? (
-    <ul className={styles.eventsList}>{specialContent}</ul>
+    <div>{specialContent}</div>
   ) : (
     <Slider list={eventsList} className={styles.eventsList} />
   );
