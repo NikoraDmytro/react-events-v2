@@ -18,7 +18,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
       onSubmit={(values, helpers) =>
-        handleSubmit(values, helpers, dispatch, event)
+        handleSubmit(values, helpers, dispatch, event.id)
       }
     >
       {({ handleReset }) => {

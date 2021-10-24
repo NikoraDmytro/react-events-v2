@@ -10,18 +10,17 @@ export const handleSubmit = async (
   values: EventFormValues,
   { setSubmitting }: FormikHelpers<EventFormValues>,
   dispatch: TypedDispatch,
-  previousValues?: EventWithId
+  id?: string
 ) => {
   try {
-    if (previousValues) {
-      const id = previousValues.id;
-
-      const editedEvent = await Axios.put<EventWithId>(
+    if (id) {
+      const response = await Axios.put<[EventWithId, EventWithId]>(
         `/events/edit/${id}`,
         values
       );
+      const [prevValue, newValue] = response.data;
 
-      dispatch(edit(previousValues, editedEvent.data));
+      dispatch(edit(prevValue, newValue));
     } else {
       const newEvent = await Axios.post<EventWithId>(`/events/create`, values);
 

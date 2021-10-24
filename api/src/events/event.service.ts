@@ -28,17 +28,25 @@ export class EventsService {
   }
 
   async removeEvent(id: string) {
-    return this.eventModel.findByIdAndRemove(id);
+    const deletedEvent = await this.eventModel.findByIdAndRemove(id);
+
+    return deletedEvent;
   }
 
-  async editEvent(id: string, eventDto: EventDto): Promise<Event> {
-    const editedEvent: Event = {
+  async editEvent(id: string, eventDto: EventDto): Promise<[Event, Event]> {
+    const editedEvent: Event & { id: string } = {
+      id: id,
       name: eventDto.eventName,
       date: eventDto.eventDate,
       start: eventDto.eventStart,
       end: eventDto.eventEnd,
     };
 
-    return this.eventModel.findByIdAndUpdate(id, editedEvent);
+    const previousValue = await this.eventModel.findByIdAndUpdate(
+      id,
+      editedEvent
+    );
+
+    return [previousValue, editedEvent];
   }
 }

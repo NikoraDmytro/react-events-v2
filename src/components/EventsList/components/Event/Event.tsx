@@ -49,7 +49,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         className={styles["flex-2"]}
       />
 
-      <button type={"submit"} onClick={submitButtonClick}>
+      <button type="submit" onClick={submitButtonClick}>
         <img
           className={styles.editImg}
           src={inEditMode ? "./img/tick.png" : "img/edit.png"}
@@ -57,7 +57,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         />
       </button>
 
-      <button onClick={handleClick}>
+      <button type="button" onClick={handleClick}>
         <img className={styles.deleteImg} src="img/close.png" alt="Delete" />
       </button>
     </li>
