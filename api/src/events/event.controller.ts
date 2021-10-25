@@ -6,27 +6,34 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
 } from "@nestjs/common";
-import { EventDto } from "./dto/event.dto";
 import { EventsService } from "./event.service";
+import { parseEventPipe } from "./pipes/parse-event.pipe";
+import { Event } from "./schemas/event.schema";
+import { validateTime } from "./pipes/validate-time.pipe";
 
 @Controller("/events")
 export class EventsController {
   constructor(private eventsService: EventsService) {}
 
   @Get()
-  getEvents() {
+  async getEvents() {
+    await this.eventsService.deleteOutdated();
+
     return this.eventsService.getEvents();
   }
 
   @Post("/create")
-  createEvent(@Body() eventDto: EventDto) {
-    return this.eventsService.createEvent(eventDto);
+  @UsePipes(validateTime)
+  createEvent(@Body(parseEventPipe) event: Event) {
+    return this.eventsService.createEvent(event);
   }
 
   @Put("/edit/:id")
-  editEvent(@Body() eventDto: EventDto, @Param("id") id: string) {
-    return this.eventsService.editEvent(id, eventDto);
+  @UsePipes(validateTime)
+  editEvent(@Body(parseEventPipe) event: Event, @Param("id") id: string) {
+    return this.eventsService.editEvent(id, event);
   }
 
   @Delete("/delete/:id")
