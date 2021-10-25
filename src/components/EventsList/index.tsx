@@ -23,12 +23,12 @@ export const EventsList = () => {
 
   if (status === "loading") {
     specialContent = <h1>Loading!</h1>;
-  } else if (status === "failed" && error) {
+  } else if (!eventsList.length) {
+    specialContent = <h1>No events yet!</h1>;
+  }
+  if (status === "failed" && error) {
     alert(error.message);
     console.log(error);
-  }
-  if (!eventsList.length) {
-    specialContent = <h1>No events yet!</h1>;
   }
 
   return specialContent ? (
