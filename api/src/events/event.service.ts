@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { EventDto } from "./dto/event.dto";
 import { Event, EventDocument } from "./schemas/event.schema";
 
 @Injectable()
@@ -10,19 +9,21 @@ export class EventsService {
     @InjectModel(Event.name) private eventModel: Model<EventDocument>
   ) {}
 
+  async deleteOutdated() {
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
+    await this.eventModel.deleteMany({ date: { $lt: today } });
+  }
+
   async getEvents(): Promise<Event[]> {
     const events = await this.eventModel.find().sort({ date: 1, start: 1 });
 
     return events;
   }
 
-  async createEvent(eventDto: EventDto): Promise<Event> {
-    const newEvent = new this.eventModel({
-      name: eventDto.eventName,
-      date: eventDto.eventDate,
-      start: eventDto.eventStart,
-      end: eventDto.eventEnd,
-    });
+  async createEvent(event: Event): Promise<Event> {
+    const newEvent = new this.eventModel(event);
 
     return newEvent.save();
   }
@@ -33,14 +34,8 @@ export class EventsService {
     return deletedEvent;
   }
 
-  async editEvent(id: string, eventDto: EventDto): Promise<[Event, Event]> {
-    const editedEvent: Event & { id: string } = {
-      id: id,
-      name: eventDto.eventName,
-      date: eventDto.eventDate,
-      start: eventDto.eventStart,
-      end: eventDto.eventEnd,
-    };
+  async editEvent(id: string, event: Event): Promise<[Event, Event]> {
+    const editedEvent = { ...event, id };
 
     const previousValue = await this.eventModel.findByIdAndUpdate(
       id,
