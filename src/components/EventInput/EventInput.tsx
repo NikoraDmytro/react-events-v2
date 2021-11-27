@@ -1,5 +1,8 @@
+import React from "react";
 import { useField } from "formik";
-import { EventInputProps } from "../../../shared/types/Props";
+
+import { EventInputProps } from "../../shared/types/Props";
+
 import styles from "./EventInput.module.scss";
 
 export const EventInput = ({ name, label, ...props }: EventInputProps) => {

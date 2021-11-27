@@ -1,10 +1,13 @@
 import { Field } from "formik";
-import styles from "./Event.module.scss";
 
-import { EventProps } from "../../../../shared/types/Props";
 import { useTypedDispatch } from "../../../../store/hooks";
 import { remove } from "../../../../store/actionCreators/remove";
-import { Axios } from "./../../../../Axios";
+
+import { EventProps } from "../../../../shared/types/Props";
+
+import { Axios } from "../../../../Axios";
+
+import styles from "./Event.module.scss";
 
 export const Event = ({ event, mode, toggleMode }: EventProps) => {
   const dispatch = useTypedDispatch();

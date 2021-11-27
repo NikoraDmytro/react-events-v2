@@ -1,6 +1,6 @@
 import React from "react";
 import { EventsList } from "./components/EventsList";
-import { EventForm } from "./components/EventForm/index";
+import { EventForm } from "./components/EventForm";
 
 function App() {
   return (
