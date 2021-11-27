@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
+import { AxiosError } from "axios";
 
 import { useTypedDispatch } from "../../../../store/hooks";
+import { edit } from "./../../../../store/actionCreators/edit";
 
+import { editEvent } from "../../../../shared/service/eventsApi";
 import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
 
-import { handleSubmit } from "../../../../utils/functions/handleSubmit";
 import { getInitialValues } from "../../../../utils/functions/getInitialValues";
 import { eventFormValidation } from "../../../../utils/validation/eventFormValidation";
 
@@ -20,9 +22,26 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
     <Formik
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
-      onSubmit={(values, helpers) =>
-        handleSubmit(values, helpers, dispatch, event.id)
-      }
+      onSubmit={async (values, { setSubmitting, setErrors }) => {
+        try {
+          const editedEvent = await editEvent(values, event.id);
+          dispatch(edit(event, editedEvent));
+
+          setSubmitting(false);
+        } catch (err) {
+          const error = err as AxiosError<Error>;
+          const message = error.response?.data.message;
+
+          if (message && message === "Time is busy") {
+            setErrors({
+              eventStart: "Time is busy!",
+              eventEnd: "Time is busy!",
+            });
+          }
+
+          console.log(error);
+        }
+      }}
     >
       {({ handleReset }) => {
         const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {

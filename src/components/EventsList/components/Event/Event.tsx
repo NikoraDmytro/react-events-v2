@@ -4,8 +4,7 @@ import { useTypedDispatch } from "../../../../store/hooks";
 import { remove } from "../../../../store/actionCreators/remove";
 
 import { EventProps } from "../../../../shared/types/Props";
-
-import { Axios } from "../../../../Axios";
+import { deleteEvent } from "./../../../../shared/service/eventsApi";
 
 import styles from "./Event.module.scss";
 
@@ -14,14 +13,14 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
 
   const inEditMode = mode === "edit";
 
-  const submitButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!inEditMode) e.preventDefault();
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (mode === "read") e.preventDefault();
     toggleMode();
   };
 
   const handleClick = async () => {
     try {
-      await Axios.delete(`/events/delete/${event.id}`);
+      await deleteEvent(event.id);
 
       dispatch(remove(event.date, event.id));
     } catch (err) {
@@ -52,7 +51,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         className={styles["flex-2"]}
       />
 
-      <button type="submit" onClick={submitButtonClick}>
+      <button type="submit" onClick={handleSubmit}>
         <img
           className={styles.editImg}
           src={inEditMode ? "./img/tick.png" : "img/edit.png"}

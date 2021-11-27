@@ -34,14 +34,11 @@ export class EventsService {
     return deletedEvent;
   }
 
-  async editEvent(id: string, event: Event): Promise<[Event, Event]> {
+  async editEvent(id: string, event: Event): Promise<Event> {
     const editedEvent = { ...event, id };
 
-    const previousValue = await this.eventModel.findByIdAndUpdate(
-      id,
-      editedEvent
-    );
+    await this.eventModel.findByIdAndUpdate(id, editedEvent);
 
-    return [previousValue, editedEvent];
+    return editedEvent;
   }
 }
