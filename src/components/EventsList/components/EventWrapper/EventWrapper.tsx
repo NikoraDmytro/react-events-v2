@@ -27,19 +27,17 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
           const editedEvent = await editEvent(values, event.id);
           dispatch(edit(event, editedEvent));
 
+          toggleMode();
           setSubmitting(false);
         } catch (err) {
           const error = err as AxiosError<Error>;
-          const message = error.response?.data.message;
 
-          if (message && message === "Time is busy") {
+          if (error.response?.data.message === "Time is busy") {
             setErrors({
               eventStart: "Time is busy!",
               eventEnd: "Time is busy!",
             });
           }
-
-          console.log(error);
         }
       }}
     >
@@ -48,7 +46,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
           const parent = e.target.parentElement;
           const target = e.relatedTarget;
 
-          if (mode === "edit" && parent && !parent.contains(target)) {
+          if (mode === "edit" && !parent?.contains(target)) {
             handleReset();
             toggleMode();
           }

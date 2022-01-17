@@ -13,9 +13,11 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
 
   const inEditMode = mode === "edit";
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (mode === "read") e.preventDefault();
-    toggleMode();
+  const preventSubmitting = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (mode === "read") {
+      e.preventDefault();
+      toggleMode();
+    }
   };
 
   const handleClick = async () => {
@@ -51,7 +53,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
         className={styles["flex-2"]}
       />
 
-      <button type="submit" onClick={handleSubmit}>
+      <button type="submit" onClick={preventSubmitting}>
         <img
           className={styles.editImg}
           src={inEditMode ? "./img/tick.png" : "img/edit.png"}

@@ -6,9 +6,10 @@ export const getVisibleElements = (
   list: React.ReactElement[]
 ) => {
   const visibleElements: React.ReactElement[] = [];
+  const lastIndex = Math.max(start + capacity, list.length);
 
-  for (let i = 0; i < capacity && i < list.length; i++) {
-    const element = list[start + i];
+  for (let i = start; i < lastIndex; i++) {
+    const element = list[i];
 
     visibleElements.push(element);
   }

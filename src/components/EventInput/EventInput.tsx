@@ -1,5 +1,6 @@
 import React from "react";
 import { useField } from "formik";
+import classNames from "classnames";
 
 import { EventInputProps } from "../../shared/types/Props";
 
@@ -16,7 +17,7 @@ export const EventInput = ({ name, label, ...props }: EventInputProps) => {
       <input
         {...field}
         type={props.type}
-        className={isError ? styles.error : undefined}
+        className={classNames({ [styles.error]: isError })}
       />
       {isError ? <em className={styles.error}>{meta.error}</em> : null}
     </div>

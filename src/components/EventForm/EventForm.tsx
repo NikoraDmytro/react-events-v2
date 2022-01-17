@@ -29,16 +29,13 @@ export const EventForm = () => {
           setSubmitting(false);
         } catch (err) {
           const error = err as AxiosError<Error>;
-          const message = error.response?.data.message;
 
-          if (message && message === "Time is busy") {
+          if (error.response?.data.message === "Time is busy") {
             setErrors({
               eventStart: "Time is busy!",
               eventEnd: "Time is busy!",
             });
           }
-
-          console.log(error);
         }
       }}
     >
