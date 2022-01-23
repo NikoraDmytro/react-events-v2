@@ -25,4 +25,8 @@ export class Event {
   end: string;
 }
 
+export class EventWithId extends Event {
+  id: string;
+}
+
 export const EventSchema = SchemaFactory.createForClass(Event);

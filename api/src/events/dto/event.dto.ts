@@ -3,4 +3,5 @@ export class EventDto {
   readonly eventDate: string;
   readonly eventStart: string;
   readonly eventEnd: string;
+  readonly id?: string;
 }

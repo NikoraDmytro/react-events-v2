@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { EventsService } from "./event.service";
 import { parseEventPipe } from "./pipes/parse-event.pipe";
-import { Event } from "./schemas/event.schema";
+import { Event, EventWithId } from "./schemas/event.schema";
 import { validateTime } from "./pipes/validate-time.pipe";
 
 @Controller("/events")
@@ -32,8 +32,8 @@ export class EventsController {
 
   @Put("/edit/:id")
   @UsePipes(validateTime)
-  editEvent(@Body(parseEventPipe) event: Event, @Param("id") id: string) {
-    return this.eventsService.editEvent(id, event);
+  editEvent(@Body(parseEventPipe) event: EventWithId) {
+    return this.eventsService.editEvent(event);
   }
 
   @Delete("/delete/:id")

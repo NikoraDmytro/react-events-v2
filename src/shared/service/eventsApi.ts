@@ -27,9 +27,12 @@ export const addEvent = async (values: EventFormValues) => {
   }
 };
 
-export const editEvent = async (values: EventFormValues, id: String) => {
+export const editEvent = async (values: EventFormValues & { id: String }) => {
   try {
-    const response = await Axios.put<EventWithId>(`/events/edit/${id}`, values);
+    const response = await Axios.put<EventWithId>(
+      `/events/edit/${values.id}`,
+      values
+    );
 
     return response.data;
   } catch (err) {

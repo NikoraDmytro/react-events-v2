@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Event, EventDocument } from "./schemas/event.schema";
+import { Event, EventDocument, EventWithId } from "./schemas/event.schema";
 import { format } from "date-fns";
 
 @Injectable()
@@ -34,11 +34,11 @@ export class EventsService {
     return deletedEvent;
   }
 
-  async editEvent(id: string, event: Event): Promise<Event> {
-    const editedEvent = { ...event, id };
+  async editEvent(event: EventWithId): Promise<EventWithId> {
+    const id = event.id;
 
-    await this.eventModel.findByIdAndUpdate(id, editedEvent);
+    await this.eventModel.findByIdAndUpdate(id, event);
 
-    return editedEvent;
+    return event;
   }
 }

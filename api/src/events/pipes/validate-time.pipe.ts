@@ -20,6 +20,7 @@ export class validateTime
 
   async transform(value: EventDto, metadata: ArgumentMetadata) {
     const busyWith = await this.eventModel.find({
+      _id: { $ne: value.id },
       date: { $eq: value.eventDate },
       start: { $lte: value.eventEnd },
       end: { $gte: value.eventStart },

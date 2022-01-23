@@ -24,7 +24,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       validate={eventFormValidation}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          const editedEvent = await editEvent(values, event.id);
+          const editedEvent = await editEvent({ ...values, id: event.id });
           dispatch(edit(event, editedEvent));
 
           toggleMode();
