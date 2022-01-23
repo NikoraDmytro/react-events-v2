@@ -1,12 +1,8 @@
-@use "../../shared/styles/components";
+@use "../../../shared/styles/components";
 
 .inputField {
   display: flex;
   flex-direction: column;
-}
-
-input.error {
-  border-color: #df1b0d;
 }
 
 em.error {

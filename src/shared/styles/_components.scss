@@ -22,3 +22,7 @@ input:disabled {
 input[type="date"]:disabled {
   visibility: hidden;
 }
+
+input.error {
+  border-color: #df1b0d;
+}

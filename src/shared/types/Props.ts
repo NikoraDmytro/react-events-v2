@@ -1,10 +1,12 @@
-import { FieldHookConfig } from "formik";
-import { ReactElement } from "react";
+import { ReactElement, DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { EventWithId } from "../../store/types/StateTypes";
 
-export type EventInputProps = FieldHookConfig<string> & {
+export type InputFieldProps = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   name: string;
-  label: string;
+  label?: string;
 };
 
 export type SliderProps = {

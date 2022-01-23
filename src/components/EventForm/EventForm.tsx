@@ -2,7 +2,7 @@ import React from "react";
 import { AxiosError } from "axios";
 import { Formik, Form } from "formik";
 
-import { EventInput } from "../EventInput";
+import { ErrorBelowInput } from "../InputFields/ErrorBelowInput";
 
 import { useTypedDispatch } from "../../store/hooks";
 import { add } from "./../../store/actionCreators/add";
@@ -43,10 +43,10 @@ export const EventForm = () => {
         <h1 className={styles.formHeader}>Добавить мероприятие</h1>
 
         <div className={styles.formInputs}>
-          <EventInput name="eventName" type="text" label="Название" />
-          <EventInput name="eventDate" type="date" label="Дата" />
-          <EventInput name="eventStart" type="time" label="Время начала" />
-          <EventInput name="eventEnd" type="time" label="Время конца" />
+          <ErrorBelowInput name="eventName" type="text" label="Название" />
+          <ErrorBelowInput name="eventDate" type="date" label="Дата" />
+          <ErrorBelowInput name="eventStart" type="time" label="Время начала" />
+          <ErrorBelowInput name="eventEnd" type="time" label="Время конца" />
         </div>
 
         <button className={styles.submitButton} type="submit">
