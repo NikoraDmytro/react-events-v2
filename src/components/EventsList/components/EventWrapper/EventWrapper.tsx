@@ -43,17 +43,17 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
     >
       {({ handleReset }) => {
         const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {
-          const parent = e.target.parentElement;
+          const form = e.currentTarget;
           const target = e.relatedTarget;
 
-          if (mode === "edit" && !parent?.contains(target)) {
+          if (mode === "edit" && !form.contains(target)) {
             handleReset();
             toggleMode();
           }
         };
 
         return (
-          <Form onBlur={handleBlur}>
+          <Form onBlur={handleBlur} tabIndex={5}>
             {children({ mode, event, toggleMode })}
           </Form>
         );

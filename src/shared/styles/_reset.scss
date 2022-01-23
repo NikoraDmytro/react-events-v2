@@ -19,6 +19,7 @@
     display: none;
   }
   &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px variables.$inputBackground inset !important;
     -webkit-box-shadow: 0 0 0px 1000px variables.$inputBackground inset !important;
   }
 }

@@ -1,2 +1,13 @@
 $inputBackground: #f7f8f9;
 $inputBorder: #e6e6e6;
+
+$valid-corners-map: (
+  "topLeft": top left,
+  "topRight": top right,
+  "bottomLeft": bottom left,
+  "bottomRight": bottom right,
+);
+
+$valid-corners: map-keys(
+  $map: $valid-corners-map,
+);

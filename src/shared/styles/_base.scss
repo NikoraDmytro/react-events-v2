@@ -1,4 +1,4 @@
-@use "sass:selector";
+@use "variables";
 
 @mixin setSize($width, $height: $width) {
   width: $width;
@@ -19,4 +19,16 @@
   &:active {
     background-color: $color2;
   }
+}
+
+@mixin setPosition($position, $corner, $topBottom: 0, $leftRight: $topBottom) {
+  position: $position;
+  $sides: map-get(variables.$valid-corners-map, $corner);
+
+  @if not $sides {
+    @error "#{$corner} is not a valid side. Expected one of #{variables.$valid-corners}.";
+  }
+
+  #{nth($sides, 1)}: $topBottom;
+  #{nth($sides, 2)}: $leftRight;
 }

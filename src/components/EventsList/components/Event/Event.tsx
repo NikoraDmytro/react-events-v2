@@ -1,10 +1,10 @@
-import { Field } from "formik";
-
 import { useTypedDispatch } from "../../../../store/hooks";
 import { remove } from "../../../../store/actionCreators/remove";
 
 import { EventProps } from "../../../../shared/types/Props";
 import { deleteEvent } from "./../../../../shared/service/eventsApi";
+
+import { TooltipErrorInput } from "../../../InputFields/TooltipErrorInput";
 
 import styles from "./Event.module.scss";
 
@@ -34,19 +34,19 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
     <li className={styles.event}>
       <span className={styles["flex-4"]}>{event.name}</span>
 
-      <Field
+      <TooltipErrorInput
         name="eventDate"
         type="date"
         disabled={!inEditMode}
         className={styles["flex-4"]}
       />
-      <Field
+      <TooltipErrorInput
         name="eventStart"
         type="time"
         disabled={!inEditMode}
         className={styles["flex-2"]}
       />
-      <Field
+      <TooltipErrorInput
         name="eventEnd"
         type="time"
         disabled={!inEditMode}

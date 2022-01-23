@@ -4,22 +4,21 @@ import classNames from "classnames";
 
 import { InputFieldProps } from "../../../shared/types/Props";
 
-import styles from "./ErrorBelowInput.module.scss";
+import styles from "./TooltipErrorInput.module.scss";
 
-export const ErrorBelowInput = ({ name, label, ...props }: InputFieldProps) => {
+export const TooltipErrorInput = ({ name, ...props }: InputFieldProps) => {
   const [field, meta] = useField({ name, ...props });
 
   const isError = meta.touched && meta.error;
 
   return (
     <div className={styles.inputField}>
-      <label>{label}</label>
       <input
         {...field}
         {...props}
         className={classNames({ [styles.error]: isError })}
       />
-      {isError ? <em className={styles.error}>{meta.error}</em> : null}
+      {isError ? <span className={styles.error}>{meta.error}</span> : null}
     </div>
   );
 };
