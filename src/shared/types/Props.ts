@@ -1,4 +1,4 @@
-import { ReactElement, DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { EventWithId } from "../../store/types/StateTypes";
 
 export type InputFieldProps = DetailedHTMLProps<
@@ -9,9 +9,12 @@ export type InputFieldProps = DetailedHTMLProps<
   label?: string;
 };
 
-export type SliderProps = {
-  list: ReactElement<HTMLLIElement>[];
-  className: string;
+export type SliderProps<T> = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLUListElement>,
+  HTMLUListElement
+> & {
+  data: T[];
+  render: (data: T[]) => React.ReactNode;
 };
 
 export type DailyEventsProps = {

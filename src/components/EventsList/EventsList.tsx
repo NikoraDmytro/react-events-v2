@@ -16,21 +16,21 @@ export const EventsList = () => {
     dispatch(fetchEvents());
   }, [dispatch]);
 
-  const eventsList = events.map((dailyEvents) => (
-    <DailyEvents key={dailyEvents[0].date} dailyEvents={dailyEvents} />
-  ));
-
-  const isLoading = status === "loading";
-  const isFailed = status === "failed";
-  const isEmpty = !eventsList.length;
-
-  return isLoading ? (
+  return error ? (
+    <h1>{error.message || "Unexpected exception!"}</h1>
+  ) : status === "loading" ? (
     <h1>Loading!</h1>
-  ) : isFailed ? (
-    <h1>{error || "Unexpected exception!"}</h1>
-  ) : isEmpty ? (
+  ) : !events.length ? (
     <h1>No events yet!</h1>
   ) : (
-    <Slider list={eventsList} className={styles.eventsList} />
+    <Slider
+      data={events}
+      className={styles.eventsList}
+      render={(data) =>
+        data.map((dailyEvents) => (
+          <DailyEvents key={dailyEvents[0].date} dailyEvents={dailyEvents} />
+        ))
+      }
+    />
   );
 };

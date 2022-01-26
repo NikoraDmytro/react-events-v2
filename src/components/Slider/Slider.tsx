@@ -1,16 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import { useCapacity } from "../../utils/hooks/useCapacity";
-import { getVisibleElements } from "../../utils/functions/getVisibleElements";
 
 import { SliderProps } from "../../shared/types/Props";
 
 import styles from "./Slider.module.scss";
 
-export const Slider = ({ list, className }: SliderProps) => {
+export function Slider<T>({ data, render, ...props }: SliderProps<T>) {
   const [start, setStart] = useState(0);
-  const listRef = useRef<HTMLUListElement>(null);
-  const capacity = useCapacity(listRef);
+  const [listRef, setListRef] = useState<HTMLUListElement | null>(null);
+
+  const capacity = useCapacity(listRef) || 1;
+
+  const end = Math.min(start + capacity, data.length);
 
   const next = () => setStart(start + 1);
   const previous = () => setStart(start - 1);
@@ -21,13 +23,13 @@ export const Slider = ({ list, className }: SliderProps) => {
         <img src="./img/arrow.png" alt="Previous" />
       </button>
 
-      <ul className={className} ref={listRef}>
-        {getVisibleElements(capacity, start, list)}
+      <ul ref={(el) => setListRef(el)} {...props}>
+        {render(data.slice(start, end))}
       </ul>
 
-      <button onClick={next} disabled={start >= list.length - capacity}>
+      <button onClick={next} disabled={end === data.length}>
         <img src="./img/arrow.png" alt="Next" />
       </button>
     </div>
   );
-};
+}

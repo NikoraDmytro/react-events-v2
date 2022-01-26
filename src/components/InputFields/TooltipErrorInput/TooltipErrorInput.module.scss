@@ -7,6 +7,7 @@
 
 span.error {
   @include base.setPosition(absolute, "topLeft", 125%, 0);
+  z-index: 5;
   padding: 1px;
   color: #ba3939;
   text-align: center;
