@@ -3,7 +3,6 @@
 
 .slider {
   @include base.flexCenter();
-  margin: 2em;
   > ul {
     width: 100%;
   }

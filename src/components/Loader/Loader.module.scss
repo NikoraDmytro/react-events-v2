@@ -1,0 +1,61 @@
+@use "../../shared/styles/base";
+
+$positions: (
+  63px 63px,
+  68px 56px,
+  71px 48px,
+  72px 40px,
+  71px 32px,
+  68px 24px,
+  63px 17px,
+  56px 12px
+);
+$delays: (
+  -0.036s,
+  -0.072s,
+  -0.108s,
+  -0.144s,
+  -0.18s,
+  -0.216s,
+  -0.252s,
+  -0.288s
+);
+
+.lds-roller {
+  @include base.setSize(80px);
+  position: relative;
+  display: inline-block;
+  div {
+    transform-origin: 40px 40px;
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  div::after {
+    @include base.setSize(7px);
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    margin: -4px 0 0 -4px;
+    background: rgba(1, 148, 26, 0.7);
+  }
+}
+
+@for $i from 1 through 8 {
+  div:nth-child(#{$i}) {
+    animation-delay: nth($delays, $i);
+    &::after {
+      $params: nth($positions, $i);
+      $top: nth($params, 1);
+      $left: nth($params, 2);
+      @include base.setPosition(absolute, "topLeft", $top, $left);
+    }
+  }
+}
+
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

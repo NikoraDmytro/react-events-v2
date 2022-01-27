@@ -1,6 +1,11 @@
 @use "../../shared/styles/base";
 @use "../../shared/styles/reset";
 
+.listWrapper {
+  margin: 2em;
+  text-align: center;
+}
+
 .eventsList {
   @include reset.resetList();
   @include base.flexCenter();
