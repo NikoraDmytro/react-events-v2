@@ -1,7 +1,7 @@
-import { AddActionType } from "../types/ActionTypes";
+import { AddEventPayload } from "../types/ActionPayloads";
 import { EventsState } from "../types/StateTypes";
 
-export const addEventAction = (state: EventsState, action: AddActionType) => {
+export const addEventAction = (state: EventsState, action: AddEventPayload) => {
   const newEvent = action.payload;
   const date = newEvent.date;
 
@@ -9,7 +9,7 @@ export const addEventAction = (state: EventsState, action: AddActionType) => {
   state.entities[date].sort((a, b) => a.start.localeCompare(b.start));
 };
 
-export const addDateAction = (state: EventsState, action: AddActionType) => {
+export const addDateAction = (state: EventsState, action: AddEventPayload) => {
   const newEvent = action.payload;
   const date = newEvent.date;
 

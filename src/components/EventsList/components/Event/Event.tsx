@@ -2,7 +2,7 @@ import { useTypedDispatch } from "../../../../store/hooks";
 import { remove } from "../../../../store/actionCreators/remove";
 
 import { EventProps } from "../../../../shared/types/Props";
-import { deleteEvent } from "./../../../../shared/service/eventsApi";
+import { eventApi } from "./../../../../shared/service/eventsApi";
 
 import { TooltipErrorInput } from "../../../InputFields/TooltipErrorInput";
 
@@ -22,7 +22,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
 
   const handleClick = async () => {
     try {
-      await deleteEvent(event.id);
+      await eventApi.removeEvent(event.id);
 
       dispatch(remove(event.date, event.id));
     } catch (err) {

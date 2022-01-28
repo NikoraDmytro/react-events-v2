@@ -7,7 +7,7 @@ import { ErrorBelowInput } from "../InputFields/ErrorBelowInput";
 import { useTypedDispatch } from "../../store/hooks";
 import { add } from "./../../store/actionCreators/add";
 
-import { addEvent } from "./../../shared/service/eventsApi";
+import { eventApi } from "./../../shared/service/eventsApi";
 
 import { getInitialValues } from "../../utils/functions/getInitialValues";
 import { eventFormValidation } from "../../utils/validation/eventFormValidation";
@@ -23,7 +23,7 @@ export const EventForm = () => {
       validate={eventFormValidation}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          const newEvent = await addEvent(values);
+          const newEvent = await eventApi.addEvent(values);
 
           dispatch(add(newEvent));
           setSubmitting(false);

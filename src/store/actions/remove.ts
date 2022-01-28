@@ -1,12 +1,9 @@
-import {
-  RemoveEventActionType,
-  RemoveDateActionType,
-} from "../types/ActionTypes";
+import { RemoveDatePayload, RemoveEventPayload } from "../types/ActionPayloads";
 import { EventsState } from "../types/StateTypes";
 
 export const removeEventAction = (
   state: EventsState,
-  action: RemoveEventActionType
+  action: RemoveEventPayload
 ) => {
   const { date, id: eventId } = action.payload;
   const eventsList = state.entities[date];
@@ -18,7 +15,7 @@ export const removeEventAction = (
 
 export const removeDateAction = (
   state: EventsState,
-  action: RemoveDateActionType
+  action: RemoveDatePayload
 ) => {
   const { date: eventDate } = action.payload;
   const dates = state.dates;

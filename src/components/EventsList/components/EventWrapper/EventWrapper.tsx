@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { useTypedDispatch } from "../../../../store/hooks";
 import { edit } from "./../../../../store/actionCreators/edit";
 
-import { editEvent } from "../../../../shared/service/eventsApi";
+import { eventApi } from "../../../../shared/service/eventsApi";
 import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
 
 import { getInitialValues } from "../../../../utils/functions/getInitialValues";
@@ -24,7 +24,10 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       validate={eventFormValidation}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          const editedEvent = await editEvent({ ...values, id: event.id });
+          const editedEvent = await eventApi.editEvent({
+            ...values,
+            id: event.id,
+          });
           dispatch(edit(event, editedEvent));
 
           toggleMode();
