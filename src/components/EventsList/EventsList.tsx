@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
+import { getAllEvents } from "../../store/reducers/eventsSlice";
+import { fetchEvents } from "./../../store/actionCreators/fetch";
 import { useTypedDispatch, useTypedSelector } from "../../store/hooks";
-import { fetchEvents, getAllEvents } from "../../store/reducers/eventsSlice";
 
 import { Loader } from "../Loader";
 import { Slider } from "./../Slider";
