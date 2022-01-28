@@ -1,6 +1,8 @@
 import { EventsFetchedPayload } from "../types/ActionPayloads";
 import { EventsState } from "../types/StateTypes";
 
+import { comparator } from "../utils/comparator";
+
 export const eventsFetchedAction = (
   state: EventsState,
   action: EventsFetchedPayload
@@ -10,14 +12,9 @@ export const eventsFetchedAction = (
   const allEvents = action.payload;
 
   allEvents.forEach((event) => {
-    const date = event.date;
-    const lastIndex = state.dates.length - 1;
-
-    if (date !== state.dates[lastIndex]) {
-      state.dates.push(date);
-      state.entities[date] = [];
-    }
-
-    state.entities[date].push(event);
+    state.ids.push(event.id);
+    state.entities[event.id] = event;
   });
+
+  state.ids.sort(comparator(state));
 };

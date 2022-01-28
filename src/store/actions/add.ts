@@ -1,19 +1,13 @@
-import { AddEventPayload } from "../types/ActionPayloads";
 import { EventsState } from "../types/StateTypes";
+import { AddEventPayload } from "../types/ActionPayloads";
+
+import { comparator } from "./../utils/comparator";
 
 export const addEventAction = (state: EventsState, action: AddEventPayload) => {
   const newEvent = action.payload;
-  const date = newEvent.date;
+  const id = newEvent.id;
 
-  state.entities[date].push(newEvent);
-  state.entities[date].sort((a, b) => a.start.localeCompare(b.start));
-};
-
-export const addDateAction = (state: EventsState, action: AddEventPayload) => {
-  const newEvent = action.payload;
-  const date = newEvent.date;
-
-  state.dates.push(date);
-  state.dates.sort((a, b) => a.localeCompare(b));
-  state.entities[date] = [newEvent];
+  state.entities[id] = newEvent;
+  state.ids.push(id);
+  state.ids.sort(comparator(state));
 };

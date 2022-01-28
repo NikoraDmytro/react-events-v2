@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { getAllEvents } from "../../store/reducers/eventsSlice";
+import { getEventsByDate } from "../../store/reducers/eventsSlice";
 import { fetchEvents } from "./../../store/actionCreators/fetch";
 import { useTypedDispatch, useTypedSelector } from "../../store/hooks";
 
@@ -12,7 +12,7 @@ import styles from "./EventsList.module.scss";
 
 export const EventsList = () => {
   const dispatch = useTypedDispatch();
-  const { events, status, error } = useTypedSelector(getAllEvents);
+  const { events, status, error } = useTypedSelector(getEventsByDate);
 
   useEffect(() => {
     dispatch(fetchEvents());
@@ -30,14 +30,14 @@ export const EventsList = () => {
         <Slider
           data={events}
           className={styles.eventsList}
-          render={(data) =>
-            data.map((dailyEvents) => (
+          render={(data) => {
+            return data.map((dailyEvents) => (
               <DailyEvents
                 key={dailyEvents[0].date}
                 dailyEvents={dailyEvents}
               />
-            ))
-          }
+            ));
+          }}
         />
       )}
     </div>

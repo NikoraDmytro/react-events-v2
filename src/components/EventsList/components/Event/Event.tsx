@@ -1,5 +1,5 @@
 import { useTypedDispatch } from "../../../../store/hooks";
-import { remove } from "../../../../store/actionCreators/remove";
+import { removeEvent } from "../../../../store/reducers/eventsSlice";
 
 import { EventProps } from "../../../../shared/types/Props";
 import { eventApi } from "./../../../../shared/service/eventsApi";
@@ -24,7 +24,7 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
     try {
       await eventApi.removeEvent(event.id);
 
-      dispatch(remove(event.date, event.id));
+      dispatch(removeEvent(event.id));
     } catch (err) {
       console.log(err);
     }

@@ -1,14 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addDateAction, addEventAction } from "../actions/add";
-import { EventsState } from "../types/StateTypes";
+
 import { RootState } from "./../store";
-import { removeDateAction, removeEventAction } from "./../actions/remove";
+
+import { addEventAction } from "../actions/add";
 import { editEventAction } from "./../actions/edit";
-import { SetErrorPayload } from "../types/ActionPayloads";
+import { removeEventAction } from "./../actions/remove";
 import { eventsFetchedAction } from "./../actions/fetch";
 
+import { EventsState } from "../types/StateTypes";
+import { SetErrorPayload } from "../types/ActionPayloads";
+import { EventWithId } from "../types/StateTypes";
+
 const initialState: EventsState = {
-  dates: [],
+  ids: [],
   entities: {},
   status: "idle",
 };
@@ -18,9 +22,7 @@ export const eventsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addEvent: addEventAction,
-    addDate: addDateAction,
     removeEvent: removeEventAction,
-    removeDate: removeDateAction,
     editEvent: editEventAction,
     eventsFetched: eventsFetchedAction,
     setLoading: (state) => {
@@ -34,9 +36,24 @@ export const eventsSlice = createSlice({
   },
 });
 
-export const getAllEvents = (state: RootState) => {
-  const dates = state.events.dates;
-  const events = dates.map((date) => state.events.entities[date]);
+export const getEventsByDate = (state: RootState) => {
+  const ids = state.events.ids;
+  const events: EventWithId[][] = [];
+
+  let index = -1;
+  let currentDate = "";
+
+  for (let id of ids) {
+    const event = state.events.entities[id];
+
+    if (event.date !== currentDate) {
+      index++;
+      events[index] = [];
+      currentDate = event.date;
+    }
+
+    events[index].push(event);
+  }
 
   return {
     events,
@@ -47,9 +64,7 @@ export const getAllEvents = (state: RootState) => {
 
 export const {
   addEvent,
-  addDate,
   removeEvent,
-  removeDate,
   editEvent,
   setLoading,
   setError,

@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { AxiosError } from "axios";
 
 import { useTypedDispatch } from "../../../../store/hooks";
-import { edit } from "./../../../../store/actionCreators/edit";
+import { editEvent } from "./../../../../store/reducers/eventsSlice";
 
 import { eventApi } from "../../../../shared/service/eventsApi";
 import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
@@ -28,7 +28,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
             ...values,
             id: event.id,
           });
-          dispatch(edit(event, editedEvent));
+          dispatch(editEvent(editedEvent));
 
           toggleMode();
           setSubmitting(false);

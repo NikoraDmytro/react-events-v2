@@ -10,9 +10,9 @@ export type Event = {
 export type EventWithId = Event & { id: string };
 
 export type EventsState = {
-  dates: string[];
+  ids: string[];
   entities: {
-    [date: string]: EventWithId[];
+    [id: string]: EventWithId;
   };
   status: "idle" | "loading" | "succeeded" | "failed";
   error?: SerializedError;

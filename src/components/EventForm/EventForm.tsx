@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { ErrorBelowInput } from "../InputFields/ErrorBelowInput";
 
 import { useTypedDispatch } from "../../store/hooks";
-import { add } from "./../../store/actionCreators/add";
+import { addEvent } from "../../store/reducers/eventsSlice";
 
 import { eventApi } from "./../../shared/service/eventsApi";
 
@@ -25,7 +25,7 @@ export const EventForm = () => {
         try {
           const newEvent = await eventApi.addEvent(values);
 
-          dispatch(add(newEvent));
+          dispatch(addEvent(newEvent));
           setSubmitting(false);
         } catch (err) {
           const error = err as AxiosError<Error>;
