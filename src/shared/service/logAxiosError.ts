@@ -2,11 +2,10 @@ import { AxiosError } from "axios";
 
 export const logAxiosError = (error: AxiosError<Error>) => {
   if (error.response) {
-    console.log(error.response);
+    alert(error.response.data.message);
   } else if (error.request) {
-    console.log(error.request);
+    alert("Request error" + error.message);
   } else {
-    console.log(error.name);
-    console.log(error.message);
+    alert(`${error.name} ${error.message}`);
   }
 };

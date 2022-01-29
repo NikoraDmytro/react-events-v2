@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { AxiosError } from "axios";
 
 import { useTypedDispatch } from "../../../../store/hooks";
 import { editEvent } from "../../../../store/actionCreators/actionCreators";
@@ -21,22 +20,11 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
     <Formik
       initialValues={getInitialValues(event)}
       validate={eventFormValidation}
-      onSubmit={async (values, { setSubmitting, setErrors }) => {
-        try {
-          dispatch(editEvent({ ...values, id: event.id }));
+      onSubmit={(values, { setSubmitting }) => {
+        dispatch(editEvent({ ...values, id: event.id }));
 
-          toggleMode();
-          setSubmitting(false);
-        } catch (err) {
-          const error = err as AxiosError<Error>;
-
-          if (error.response?.data.message === "Time is busy") {
-            setErrors({
-              eventStart: "Time is busy!",
-              eventEnd: "Time is busy!",
-            });
-          }
-        }
+        toggleMode();
+        setSubmitting(false);
       }}
     >
       {({ handleReset }) => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { AxiosError } from "axios";
 import { Formik, Form } from "formik";
 
 import { ErrorBelowInput } from "../InputFields/ErrorBelowInput";
@@ -20,20 +19,9 @@ export const EventForm = () => {
     <Formik
       initialValues={getInitialValues()}
       validate={eventFormValidation}
-      onSubmit={async (values, { setSubmitting, setErrors }) => {
-        try {
-          dispatch(addEvent(values));
-          setSubmitting(false);
-        } catch (err) {
-          const error = err as AxiosError<Error>;
-
-          if (error.response?.data.message === "Time is busy") {
-            setErrors({
-              eventStart: "Time is busy!",
-              eventEnd: "Time is busy!",
-            });
-          }
-        }
+      onSubmit={(values, { setSubmitting }) => {
+        dispatch(addEvent(values));
+        setSubmitting(false);
       }}
     >
       <Form className={styles.eventForm}>

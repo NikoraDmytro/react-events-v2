@@ -19,12 +19,8 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
     }
   };
 
-  const handleClick = async () => {
-    try {
-      dispatch(removeEvent(event.id));
-    } catch (err) {
-      alert("Failed to delete an event!");
-    }
+  const handleClick = () => {
+    dispatch(removeEvent(event.id));
   };
 
   return (
