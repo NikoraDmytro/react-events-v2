@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "./../store";
 
-import { addEventAction } from "../actions/add";
-import { editEventAction } from "./../actions/edit";
-import { removeEventAction } from "./../actions/remove";
+import { eventAddedAction } from "../actions/add";
+import { eventEditedAction } from "../actions/edit";
+import { eventRemovedAction } from "../actions/remove";
 import { eventsFetchedAction } from "./../actions/fetch";
 
 import { EventsState } from "../types/StateTypes";
@@ -21,9 +21,9 @@ export const eventsSlice = createSlice({
   name: "events",
   initialState: initialState,
   reducers: {
-    addEvent: addEventAction,
-    removeEvent: removeEventAction,
-    editEvent: editEventAction,
+    eventAdded: eventAddedAction,
+    eventEdited: eventEditedAction,
+    eventRemoved: eventRemovedAction,
     eventsFetched: eventsFetchedAction,
     setLoading: (state) => {
       state.status = "loading";
@@ -63,9 +63,9 @@ export const getEventsByDate = (state: RootState) => {
 };
 
 export const {
-  addEvent,
-  removeEvent,
-  editEvent,
+  eventAdded,
+  eventEdited,
+  eventRemoved,
   setLoading,
   setError,
   eventsFetched,

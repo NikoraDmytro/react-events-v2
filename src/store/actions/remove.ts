@@ -1,9 +1,9 @@
-import { RemoveEventPayload } from "../types/ActionPayloads";
 import { EventsState } from "../types/StateTypes";
+import { EventRemovedPayload } from "../types/ActionPayloads";
 
-export const removeEventAction = (
+export const eventRemovedAction = (
   state: EventsState,
-  action: RemoveEventPayload
+  action: EventRemovedPayload
 ) => {
   const eventId = action.payload;
 

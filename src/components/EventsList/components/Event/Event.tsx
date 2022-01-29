@@ -1,8 +1,7 @@
 import { useTypedDispatch } from "../../../../store/hooks";
-import { removeEvent } from "../../../../store/reducers/eventsSlice";
+import { removeEvent } from "../../../../store/actionCreators/actionCreators";
 
 import { EventProps } from "../../../../shared/types/Props";
-import { eventApi } from "./../../../../shared/service/eventsApi";
 
 import { TooltipErrorInput } from "../../../InputFields/TooltipErrorInput";
 
@@ -22,11 +21,9 @@ export const Event = ({ event, mode, toggleMode }: EventProps) => {
 
   const handleClick = async () => {
     try {
-      await eventApi.removeEvent(event.id);
-
       dispatch(removeEvent(event.id));
     } catch (err) {
-      console.log(err);
+      alert("Failed to delete an event!");
     }
   };
 

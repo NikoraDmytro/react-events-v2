@@ -1,12 +1,14 @@
 import { SerializedError } from "@reduxjs/toolkit";
-import { takeLatest, put, call } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 import { FETCH_EVENTS } from "../types/Actions";
 import { EventWithId } from "../types/StateTypes";
+
 import { eventApi } from "../../shared/service/eventsApi";
+
 import { eventsFetched, setError, setLoading } from "../reducers/eventsSlice";
 
-function* fetchEventsSaga(): Generator<any, void, EventWithId[]> {
+function* fetchEvents(): Generator<any, void, EventWithId[]> {
   try {
     yield put(setLoading());
 
@@ -18,6 +20,6 @@ function* fetchEventsSaga(): Generator<any, void, EventWithId[]> {
   }
 }
 
-export default function* eventsSaga() {
-  yield takeLatest(FETCH_EVENTS, fetchEventsSaga);
+export default function* watchFetchEvent() {
+  yield takeLatest(FETCH_EVENTS, fetchEvents);
 }

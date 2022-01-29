@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { getEventsByDate } from "../../store/reducers/eventsSlice";
-import { fetchEvents } from "./../../store/actionCreators/fetch";
+import { fetchEvents } from "../../store/actionCreators/actionCreators";
 import { useTypedDispatch, useTypedSelector } from "../../store/hooks";
 
 import { Loader } from "../Loader";

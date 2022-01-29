@@ -3,9 +3,8 @@ import { Formik, Form } from "formik";
 import { AxiosError } from "axios";
 
 import { useTypedDispatch } from "../../../../store/hooks";
-import { editEvent } from "./../../../../store/reducers/eventsSlice";
+import { editEvent } from "../../../../store/actionCreators/actionCreators";
 
-import { eventApi } from "../../../../shared/service/eventsApi";
 import { Mode, EventWrapperProps } from "../../../../shared/types/Props";
 
 import { getInitialValues } from "../../../../utils/functions/getInitialValues";
@@ -24,11 +23,7 @@ export const EventWrapper = ({ event, children }: EventWrapperProps) => {
       validate={eventFormValidation}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          const editedEvent = await eventApi.editEvent({
-            ...values,
-            id: event.id,
-          });
-          dispatch(editEvent(editedEvent));
+          dispatch(editEvent({ ...values, id: event.id }));
 
           toggleMode();
           setSubmitting(false);

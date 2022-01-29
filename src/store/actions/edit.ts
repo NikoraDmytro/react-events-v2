@@ -1,11 +1,11 @@
 import { EventsState } from "../types/StateTypes";
-import { EditEventPayload } from "../types/ActionPayloads";
+import { EventEditedPayload } from "../types/ActionPayloads";
 
-import { comparator } from "./../utils/comparator";
+import { comparator } from "../utils/comparator";
 
-export const editEventAction = (
+export const eventEditedAction = (
   state: EventsState,
-  action: EditEventPayload
+  action: EventEditedPayload
 ) => {
   const editedEvent = action.payload;
   const id = editedEvent.id;
