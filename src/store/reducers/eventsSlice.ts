@@ -8,8 +8,8 @@ import { eventRemovedAction } from "../actions/remove";
 import { eventsFetchedAction } from "./../actions/fetch";
 
 import { EventsState } from "../types/StateTypes";
-import { SetErrorPayload } from "../types/ActionPayloads";
 import { EventWithId } from "../types/StateTypes";
+import { SetStatusPayload } from "../types/ActionPayloads";
 
 const initialState: EventsState = {
   ids: [],
@@ -25,13 +25,11 @@ export const eventsSlice = createSlice({
     eventEdited: eventEditedAction,
     eventRemoved: eventRemovedAction,
     eventsFetched: eventsFetchedAction,
-    setLoading: (state) => {
-      state.status = "loading";
-    },
-    setError: (state, action: SetErrorPayload) => {
-      state.status = "failed";
+    setStatus: (state, action: SetStatusPayload) => {
+      const { status, globalError } = action.payload;
 
-      state.error = action.payload;
+      state.status = status;
+      state.globalError = globalError;
     },
   },
 });
@@ -58,16 +56,15 @@ export const getEventsByDate = (state: RootState) => {
   return {
     events,
     status: state.events.status,
-    error: state.events.error,
+    error: state.events.globalError,
   };
 };
 
 export const {
+  setStatus,
   eventAdded,
   eventEdited,
   eventRemoved,
-  setLoading,
-  setError,
   eventsFetched,
 } = eventsSlice.actions;
 

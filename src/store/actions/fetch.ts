@@ -7,8 +7,6 @@ export const eventsFetchedAction = (
   state: EventsState,
   action: EventsFetchedPayload
 ) => {
-  state.status = "succeeded";
-
   const allEvents = action.payload;
 
   allEvents.forEach((event) => {

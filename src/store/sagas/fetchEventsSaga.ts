@@ -1,22 +1,27 @@
 import { SerializedError } from "@reduxjs/toolkit";
-import { call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 
 import { FETCH_EVENTS } from "../types/Actions";
 import { EventWithId } from "../types/StateTypes";
 
 import { eventApi } from "../../shared/service/eventsApi";
 
-import { eventsFetched, setError, setLoading } from "../reducers/eventsSlice";
+import { eventsFetched, setStatus } from "../reducers/eventsSlice";
 
 function* fetchEvents(): Generator<any, void, EventWithId[]> {
   try {
-    yield put(setLoading());
+    yield put(setStatus({ status: "loading" }));
 
     const events = yield call(eventApi.fetchEvents);
 
-    yield put(eventsFetched(events));
+    yield all([
+      put(setStatus({ status: "succeeded" })),
+      put(eventsFetched(events)),
+    ]);
   } catch (err) {
-    yield put(setError(err as SerializedError));
+    yield put(
+      setStatus({ status: "error", globalError: err as SerializedError })
+    );
   }
 }
 

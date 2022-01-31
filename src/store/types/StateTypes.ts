@@ -14,6 +14,6 @@ export type EventsState = {
   entities: {
     [id: string]: EventWithId;
   };
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error?: SerializedError;
+  status: "idle" | "loading" | "succeeded" | "error";
+  globalError?: SerializedError;
 };

@@ -20,13 +20,9 @@ export const EventsList = () => {
 
   return (
     <div className={styles.listWrapper}>
-      {error ? (
-        <h1>{error.message || "Unexpected exception!"}</h1>
-      ) : status === "loading" ? (
-        <Loader />
-      ) : !events.length ? (
-        <h1>No events yet!</h1>
-      ) : (
+      {status === "loading" && <Loader />}
+      {!error && !events.length && <h1>No events yet!</h1>}
+      {events.length ? (
         <Slider
           data={events}
           className={styles.eventsList}
@@ -39,7 +35,8 @@ export const EventsList = () => {
             ));
           }}
         />
-      )}
+      ) : null}
+      {error && <h1>{`${error?.name}: ${error?.message}`}</h1>}
     </div>
   );
 };

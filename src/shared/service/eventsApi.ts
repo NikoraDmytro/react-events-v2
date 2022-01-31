@@ -14,8 +14,6 @@ const add = async (values: EventFormValues) => {
     return addedEvent;
   } catch (err) {
     logAxiosError(err as AxiosError<Error>);
-
-    throw err;
   }
 };
 
@@ -30,8 +28,6 @@ const edit = async (values: EventFormValues & { id: String }) => {
     return editedEvent;
   } catch (err) {
     logAxiosError(err as AxiosError<Error>);
-
-    throw err;
   }
 };
 
@@ -43,8 +39,6 @@ const remove = async (id: String) => {
     return deletedEvent;
   } catch (err) {
     logAxiosError(err as AxiosError<Error>);
-
-    throw err;
   }
 };
 
@@ -56,8 +50,6 @@ const fetch = async () => {
     return fetchedEvents;
   } catch (err) {
     logAxiosError(err as AxiosError<Error>);
-
-    throw err;
   }
 };
 

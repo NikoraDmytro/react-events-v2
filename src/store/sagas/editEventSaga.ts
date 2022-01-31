@@ -1,10 +1,11 @@
+import { SerializedError } from "@reduxjs/toolkit";
 import { call, put, takeEvery } from "redux-saga/effects";
 
 import { EDIT_EVENT } from "../types/Actions";
 import { EventWithId } from "../types/StateTypes";
 import { EditEventPayload } from "../types/ActionPayloads";
 
-import { eventEdited } from "../reducers/eventsSlice";
+import { eventEdited, setStatus } from "../reducers/eventsSlice";
 
 import { eventApi } from "../../shared/service/eventsApi";
 
@@ -18,7 +19,9 @@ function* editEvent(
 
     yield put(eventEdited(editedEvent));
   } catch (err) {
-    console.log("Something went wrong!");
+    yield put(
+      setStatus({ status: "error", globalError: err as SerializedError })
+    );
   }
 }
 

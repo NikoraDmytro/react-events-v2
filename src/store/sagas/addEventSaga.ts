@@ -1,4 +1,5 @@
-import { takeEvery, call, put } from "redux-saga/effects";
+import { SerializedError } from "@reduxjs/toolkit";
+import { takeEvery, call, put, all } from "redux-saga/effects";
 
 import { ADD_EVENT } from "../types/Actions";
 import { EventWithId } from "../types/StateTypes";
@@ -6,7 +7,7 @@ import { AddEventPayload } from "../types/ActionPayloads";
 
 import { eventApi } from "../../shared/service/eventsApi";
 
-import { eventAdded } from "../reducers/eventsSlice";
+import { eventAdded, setStatus } from "../reducers/eventsSlice";
 
 function* addEvent(action: AddEventPayload): Generator<any, void, EventWithId> {
   try {
@@ -14,9 +15,14 @@ function* addEvent(action: AddEventPayload): Generator<any, void, EventWithId> {
 
     const newEvent = yield call(eventApi.addEvent, eventToAdd);
 
-    yield put(eventAdded(newEvent));
+    yield all([
+      put(setStatus({ status: "succeeded" })),
+      put(eventAdded(newEvent)),
+    ]);
   } catch (err) {
-    console.log("Something went wrong!");
+    yield put(
+      setStatus({ status: "error", globalError: err as SerializedError })
+    );
   }
 }
 
